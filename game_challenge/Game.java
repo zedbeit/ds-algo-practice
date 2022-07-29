@@ -6,6 +6,9 @@ public class Game {
     static final int row = 6;
     static final int col = 7;
 
+    static int redCounter = 0;
+    static int yellowCounter = 0;
+
     public static char[][] createBoard() {
         char[][] board = new char[row][col];
 
@@ -66,5 +69,31 @@ public class Game {
             }
         }
         return false;
+    }
+
+    // 1.4
+    public static List<Integer> validMoves(char[][] board) {
+        List<Integer> moves = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (board[i][j] == '.') {
+                moves.add(j);
+                }
+            }
+        }
+
+        return moves;
+    }
+
+    // 1.5
+    public static char whoseMove(char[][] board){
+
+        if(!validBoard(board)) return '.';
+
+        if(redCounter > yellowCounter) return 'Y';
+
+        return 'R';
+        
     }
 }
