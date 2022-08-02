@@ -96,4 +96,65 @@ public class Game {
         return 'R';
         
     }
+
+    // 1.6
+    public static char whoWon(char[][] board) {
+        
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) { // check every square
+                char disc = board[i][j];
+
+                if (disc != '.') {
+                    if(checkVerticalWin(board,j,disc)){
+                        return disc;
+                    }
+                    if(checkHorizontalWin(board,i,disc)){
+                        return disc;
+                    }
+                }
+
+            }
+        }
+        return 'D';
+    }
+
+    public static boolean checkHorizontalWin(char[][] board, int row, char square) {
+        
+        int count = 0;
+    
+        for (int col = 0; col < 7; col++) {
+          if (board[row][col] == square) {
+            count++;
+          } else if (count == 4) {
+            break;
+          } else {
+            count = 0;
+          }
+        }
+    
+        if (count >= 4) {
+          return true;
+        }
+        return false;
+    }
+    
+    public static boolean checkVerticalWin(char[][] board, int col, char square) {
+
+        int count = 0;
+
+        for (int row = 0; row < 6; row++) {
+            if (board[row][col] == square) {
+                count++;
+            } else if (count == 4) {
+                break;
+            } else {
+                count = 0;
+            }
+        }
+
+        if (count >= 4) {
+            return true;
+        }
+        return false;
+    }
 }
