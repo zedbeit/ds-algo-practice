@@ -99,62 +99,70 @@ public class Game {
 
     // 1.6
     public static char whoWon(char[][] board) {
-        
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) { // check every square
-                char disc = board[i][j];
 
-                if (disc != '.') {
-                    if(checkVerticalWin(board,j,disc)){
-                        return disc;
-                    }
-                    if(checkHorizontalWin(board,i,disc)){
-                        return disc;
-                    }
-                }
+        char vertical = checkVerticalWin(board);
 
-            }
-        }
-        return 'D';
+        if (vertical != '.')
+            return vertical;
+
+        char horizontal = checkHorizontalWin(board);
+
+        if (horizontal != '.')
+            return horizontal;
+
+        return '.';
     }
 
-    public static boolean checkHorizontalWin(char[][] board, int row, char square) {
-        
-        int count = 0;
-    
-        for (int col = 0; col < 7; col++) {
-          if (board[row][col] == square) {
-            count++;
-          } else if (count == 4) {
-            break;
-          } else {
-            count = 0;
+    public static char checkHorizontalWin(char[][] board) {
+        int redCount = 0;
+        int yellowCount = 0;
+
+        for (int i = 0; i < board.length; i++) {
+          for (int j = 0; j < board[0].length; j++) {
+            if (board[i][j] == 'R') {
+              redCount++;
+              yellowCount = 0;
+              if (redCount >= 4) {
+                return 'R';
+              }
+            } else if (board[i][j] == 'Y') {
+              yellowCount++;
+              redCount = 0;
+              if (yellowCount >= 4) {
+                return 'Y';
+              }
+            }
           }
+          redCount = 0;
+          yellowCount = 0;
         }
-    
-        if (count >= 4) {
-          return true;
-        }
-        return false;
+        return '.';
     }
-    
-    public static boolean checkVerticalWin(char[][] board, int col, char square) {
 
-        int count = 0;
+    public static char checkVerticalWin(char[][] board) {
+        int redCount = 0;
+        int yellowCount = 0;
 
-        for (int row = 0; row < 6; row++) {
-            if (board[row][col] == square) {
-                count++;
-            } else if (count == 4) {
-                break;
-            } else {
-                count = 0;
+        for (int i = 0; i < board[0].length; i++) {
+          for (int j = 0; j < board.length; j++) {
+            if (board[j][i] == 'R') {
+              redCount++;
+              yellowCount = 0;
+              if (redCount >= 4) {
+                return 'R';
+              }
+            } else if (board[j][i] == 'Y') {
+              yellowCount++;
+              redCount = 0;
+              if (yellowCount >= 4) {
+                return 'Y';
+              }
             }
+          }
+          redCount = 0;
+          yellowCount = 0;
+    
         }
-
-        if (count >= 4) {
-            return true;
-        }
-        return false;
+        return '.';
     }
 }
