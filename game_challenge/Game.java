@@ -110,6 +110,19 @@ public class Game {
         if (horizontal != '.')
             return horizontal;
 
+        char leftDiagonal = checkLeftDiagonal(board);
+        
+        if (leftDiagonal != '.') {
+            return leftDiagonal;
+        }
+        
+        
+        char rightDiagonal = checkRightDiagonal(board);
+        
+        if (rightDiagonal != '.') {
+            return rightDiagonal;
+        }
+
         return '.';
     }
 
@@ -165,4 +178,120 @@ public class Game {
         }
         return '.';
     }
+
+    public static char checkLeftDiagonal(char[][] board) {
+        int redCount = 0;
+        int yellowCount = 0;
+    
+        for (int i = 0; i < board[0].length; i++) {
+          for (int j = 0; j < board.length; j++) {
+            if (i - j >= 0) {
+              if (board[j][i - j] == 'R') {
+                redCount++;
+                yellowCount = 0;
+                if (redCount >= 4) {
+                  return 'R';
+                }
+              } else if (board[j][i - j] == 'Y') {
+                yellowCount++;
+                redCount = 0;
+                if (yellowCount >= 4) {
+                  return 'Y';
+                }
+              } else if (board[j][i - j] == '.') {
+                redCount = 0;
+                yellowCount = 0;
+              }
+            }
+          }
+          redCount = 0;
+          yellowCount = 0;
+        }
+        redCount = 0;
+        yellowCount = 0;
+        for (int i = 0; i < board.length; i++) {
+          for (int j = 0; j < board.length; j++) {
+            if ((board[0].length - 1 - j + i) < 7) {
+              if (board[j][board[0].length - 1 - j + i] == 'R') {
+                redCount++;
+                yellowCount = 0;
+                if (redCount >= 4) {
+                  return 'R';
+                }
+              } else if (board[j][board[0].length - 1 - j + i] == 'Y') {
+                yellowCount++;
+                redCount = 0;
+                if (yellowCount >= 4) {
+                  return 'Y';
+                }
+              } else if (board[j][board[0].length - 1 - j + i] == '.') {
+                redCount = 0;
+                yellowCount = 0;
+              }
+            }
+          }
+          redCount = 0;
+          yellowCount = 0;
+        }
+        return '.';
+    }
+
+    public static char checkRightDiagonal(char[][] board) {
+        int redCount = 0;
+        int yellowCount = 0;
+        for (int i = board[0].length - 1; i >= 0; i--) {
+          for (int j = 0; j < board.length; j++) {
+            if (i + j < 7) {
+              if (board[j][i + j] == 'R') {
+                redCount++;
+                yellowCount = 0;
+                if (redCount >= 4) {
+                  return 'R';
+                }
+              } else if (board[j][i + j] == 'Y') {
+                yellowCount++;
+                redCount = 0;
+                if (yellowCount >= 4) {
+                  return 'Y';
+                }
+              } else if (board[j][i + j] == '.') {
+                redCount = 0;
+                yellowCount = 0;
+              }
+            }
+    
+          }
+          redCount = 0;
+          yellowCount = 0;
+        }
+        redCount = 0;
+        yellowCount = 0;
+        for (int i = 0; i < board.length; i++) {
+          for (int j = i; j < board.length; j++) {
+            if (j - i > -1) {
+              if (board[j][j - i] == 'R') {
+                redCount++;
+                yellowCount = 0;
+                if (redCount >= 4) {
+                  return 'R';
+                }
+              } else if (board[j][j - i] == 'Y') {
+                yellowCount++;
+                redCount = 0;
+                if (yellowCount >= 4) {
+                  return 'Y';
+                }  
+              }
+              else if (board[j][j - i] == '.') {
+                redCount = 0;
+                yellowCount = 0;
+              }
+          }
+          redCount = 0;
+          yellowCount = 0;
+        }
+      } 
+      return '.';
+    }
+
 }
